@@ -18,6 +18,8 @@ class VirtualKeyboard {
 
         switch (currentKeyCode) {
           case 'Space':
+            this.textarea.insertSpace();
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'Backspace':
             break;
