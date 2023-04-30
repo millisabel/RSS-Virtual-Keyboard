@@ -39,9 +39,11 @@ class Textarea {
   }
 
   deleteNextChar(cursorPosition) {
-    this.el.value = `${this.el.value.slice(0, cursorPosition)}${this.el.value.slice(cursorPosition + 1)}`;
-    this.el.selectionStart = cursorPosition;
-    this.el.selectionEnd = cursorPosition;
+    if (cursorPosition < this.el.value.length) {
+      this.el.value = `${this.el.value.slice(0, cursorPosition)}${this.el.value.slice(cursorPosition + 1)}`;
+      this.el.selectionStart = cursorPosition;
+      this.el.selectionEnd = cursorPosition;
+    }
     this.el.focus();
   }
 }

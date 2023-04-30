@@ -32,6 +32,8 @@ class VirtualKeyboard {
             this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'Enter':
+            this.textarea.addNewChar('\n', this.cursorPosition);
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'Tab':
             break;
