@@ -11,6 +11,14 @@ class Key {
     } else {
       this.keyEl.innerHTML = letter[language][keyCode].key;
     }
+
+    this.keyEl.addEventListener('mousedown', () => {
+      this.keyEl.classList.add('key--active');
+    });
+
+    this.keyEl.addEventListener('mouseup', () => {
+      this.keyEl.classList.remove('key--active');
+    });
   }
 }
 
