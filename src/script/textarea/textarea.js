@@ -16,8 +16,15 @@ class Textarea {
     textareaField.focus();
   }
 
-  addNewChar(char) {
-    this.field.value += char;
+  addNewChar(char, cursorPosition) {
+    if (cursorPosition === this.field.value.length) {
+      this.field.value += char;
+    } else {
+      this.field.value = `${this.field.value.slice(0, cursorPosition)}${char}${this.field.value.slice(cursorPosition)}`;
+    }
+    this.field.selectionStart = cursorPosition + 1;
+    this.field.selectionEnd = cursorPosition + 1;
+    this.field.focus();
   }
 
   getCursorPosition() {

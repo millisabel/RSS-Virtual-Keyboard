@@ -15,6 +15,7 @@ class VirtualKeyboard {
 
     this.keyboard.keyboard.addEventListener('click', (event) => {
       if (event.target.tagName === 'BUTTON') {
+        const currentKeyEl = event.target;
         const currentKeyCode = event.target.dataset.code;
 
         switch (currentKeyCode) {
@@ -33,7 +34,7 @@ class VirtualKeyboard {
           case 'CapsLock':
             this.capsLock = !this.capsLock;
             this.keyboard.keys.forEach((key) => {
-              const currentKey = key;
+              const keyEl = key;
               const keyCode = key.key.dataset.code;
               let value;
 
@@ -44,7 +45,7 @@ class VirtualKeyboard {
               }
 
               if (!(keyCode in specKey) && letter[language][keyCode][value]) {
-                currentKey.key.innerHTML = letter[language][keyCode][value];
+                keyEl.key.innerHTML = letter[language][keyCode][value];
               }
             });
             break;
@@ -68,9 +69,29 @@ class VirtualKeyboard {
           case 'MetaLeft':
             break;
           default:
+            this.textarea.addNewChar(currentKeyEl.innerHTML, this.cursorPosition);
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
         }
       }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      this.textarea.field.focus();
+      this.keyboard.keys.forEach((key) => {
+        if (key.key.dataset.code === event.code) {
+          key.key.classList.add('key--active');
+        }
+      });
+    });
+
+    document.addEventListener('keyup', (event) => {
+      this.keyboard.keys.forEach((key) => {
+        if (key.key.dataset.code === event.code) {
+          key.key.classList.remove('key--active');
+          this.cursorPosition = this.textarea.getCursorPosition();
+        }
+      });
     });
   }
 }
