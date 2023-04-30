@@ -24,8 +24,12 @@ class VirtualKeyboard {
             this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'Backspace':
+            this.textarea.deletePrevChar(this.cursorPosition);
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'Delete':
+            this.textarea.deleteNextChar(this.cursorPosition);
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'Enter':
             break;

@@ -30,6 +30,20 @@ class Textarea {
   getCursorPosition() {
     return this.el.selectionStart;
   }
+
+  deletePrevChar(cursorPosition) {
+    this.el.value = `${this.el.value.slice(0, cursorPosition - 1)}${this.el.value.slice(cursorPosition)}`;
+    this.el.selectionStart = cursorPosition - 1;
+    this.el.selectionEnd = cursorPosition - 1;
+    this.el.focus();
+  }
+
+  deleteNextChar(cursorPosition) {
+    this.el.value = `${this.el.value.slice(0, cursorPosition)}${this.el.value.slice(cursorPosition + 1)}`;
+    this.el.selectionStart = cursorPosition;
+    this.el.selectionEnd = cursorPosition;
+    this.el.focus();
+  }
 }
 
 export default Textarea;

@@ -3,6 +3,7 @@ export const language = 'ru';
 export const specKey = {
   Space: 'Space',
   Backspace: 'Backspace',
+  Delete: 'Delete',
   Enter: 'Enter',
   Tab: 'Tab',
   ArrowLeft: '◄',
@@ -493,6 +494,7 @@ export const keys = [
     'BracketLeft',
     'BracketRight',
     'Backslash',
+    'Delete',
   ],
   [
     'CapsLock',
