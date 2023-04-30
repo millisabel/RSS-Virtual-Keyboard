@@ -1,5 +1,6 @@
 import Textarea from '../textarea/textarea.js';
 import Keyboard from '../keyboard/keyboard.js';
+import { language, letter, specKey } from '../data/data.js';
 
 class VirtualKeyboard {
   constructor(parent) {
@@ -30,6 +31,22 @@ class VirtualKeyboard {
           case 'Tab':
             break;
           case 'CapsLock':
+            this.capsLock = !this.capsLock;
+            this.keyboard.keys.forEach((key) => {
+              const currentKey = key;
+              const keyCode = key.key.dataset.code;
+              let value;
+
+              if (this.capsLock) {
+                value = 'keyTab';
+              } else {
+                value = 'key';
+              }
+
+              if (!(keyCode in specKey) && letter[language][keyCode][value]) {
+                currentKey.key.innerHTML = letter[language][keyCode][value];
+              }
+            });
             break;
           case 'ShiftLeft':
           case 'ShiftRight':
