@@ -3,13 +3,13 @@ import { language, letter, specKey } from '../data/data.js';
 
 class Key {
   constructor(parent, keyCode) {
-    this.key = insertNewDOMElement(parent, 'button', 'key');
-    this.key.dataset.code = keyCode;
+    this.keyEl = insertNewDOMElement(parent, 'button', 'key');
+    this.keyEl.dataset.code = keyCode;
 
     if (keyCode in specKey) {
-      this.key.innerHTML = specKey[keyCode];
+      this.keyEl.innerHTML = specKey[keyCode];
     } else {
-      this.key.innerHTML = letter[language][keyCode].key;
+      this.keyEl.innerHTML = letter[language][keyCode].key;
     }
   }
 }

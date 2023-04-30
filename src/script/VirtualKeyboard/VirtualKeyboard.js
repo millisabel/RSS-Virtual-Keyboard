@@ -9,7 +9,7 @@ class VirtualKeyboard {
     this.cursorPosition = 0;
     this.capsLock = false;
 
-    this.textarea.field.addEventListener('click', () => {
+    this.textarea.el.addEventListener('click', () => {
       this.cursorPosition = this.textarea.getCursorPosition();
     });
 
@@ -34,8 +34,8 @@ class VirtualKeyboard {
           case 'CapsLock':
             this.capsLock = !this.capsLock;
             this.keyboard.keys.forEach((key) => {
-              const keyEl = key;
-              const keyCode = key.key.dataset.code;
+              const currentEl = key;
+              const keyCode = currentEl.keyEl.dataset.code;
               let value;
 
               if (this.capsLock) {
@@ -45,7 +45,7 @@ class VirtualKeyboard {
               }
 
               if (!(keyCode in specKey) && letter[language][keyCode][value]) {
-                keyEl.key.innerHTML = letter[language][keyCode][value];
+                currentEl.keyEl.innerHTML = letter[language][keyCode][value];
               }
             });
             break;
@@ -77,18 +77,18 @@ class VirtualKeyboard {
     });
 
     document.addEventListener('keydown', (event) => {
-      this.textarea.field.focus();
+      this.textarea.el.focus();
       this.keyboard.keys.forEach((key) => {
-        if (key.key.dataset.code === event.code) {
-          key.key.classList.add('key--active');
+        if (key.keyEl.dataset.code === event.code) {
+          key.keyEl.classList.add('key--active');
         }
       });
     });
 
     document.addEventListener('keyup', (event) => {
       this.keyboard.keys.forEach((key) => {
-        if (key.key.dataset.code === event.code) {
-          key.key.classList.remove('key--active');
+        if (key.keyEl.dataset.code === event.code) {
+          key.keyEl.classList.remove('key--active');
           this.cursorPosition = this.textarea.getCursorPosition();
         }
       });
