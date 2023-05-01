@@ -67,12 +67,14 @@ class VirtualKeyboard {
           case 'AltRight':
             break;
           case 'ArrowLeft':
+          case 'ArrowRight':
+            this.textarea.updateCursorPositionHoriz(currentKeyCode, this.cursorPosition);
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'ArrowUp':
-            break;
-          case 'ArrowRight':
-            break;
           case 'ArrowDown':
+            this.textarea.updateCursorPositionVert(currentKeyCode, this.cursorPosition);
+            this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'MetaLeft':
             break;
