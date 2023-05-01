@@ -8,6 +8,7 @@ class Key {
 
     if (keyCode in specKey) {
       this.keyEl.innerHTML = specKey[keyCode];
+      this.keyEl.classList.add('key--spec');
     } else {
       this.keyEl.innerHTML = letter[language][keyCode].key;
     }

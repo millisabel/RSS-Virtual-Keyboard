@@ -1,0 +1,44 @@
+.key{
+  --key-size: 4vw;
+  --key-width: var(--key-size);
+  --key-height: var(--key-size);
+
+  width: var(--key-width);
+  min-width: var(--key-width);
+  height: var(--key-height);
+  border: none;
+  border-radius: 5px;
+
+  font-size: calc(var(--key-size) / 2);
+  cursor: pointer;
+  transition: background 0.5s ease, color 0.3s ease;
+
+  &--spec{
+    font-size: calc(var(--key-size) / 4);
+    font-weight: bold;
+
+    background: #8c8b8b;
+  }
+
+  &[data-code="Space"],
+  &[data-code="ShiftLeft"],
+  &[data-code="ShiftRight"],
+  &[data-code="Enter"],
+  &[data-code="CapsLock"],
+  &[data-code="Backspace"]{
+    --key-width: calc(var(--key-size) * 2);
+
+    flex-grow: 1;
+  }
+
+  &:hover{
+    color: #fff;
+    background: var(--color-main);
+    box-shadow: 0 2px 3px 1px #fff
+  }
+
+  &--active,
+  &:active{
+    background: #d51717;
+  }
+}

@@ -1,0 +1,16 @@
+.wrap{
+  width: max-content;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 10px 20px 20px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+
+  box-shadow: 0 0 50px grey;
+
+  background: #d2d2d2;
+}
