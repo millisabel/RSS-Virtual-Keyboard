@@ -98,7 +98,9 @@ class Textarea {
         if (cursorPositionFromLineStart <= newLine.length) {
           newtLineCursorPosition = cursorPosition + currentLine.length + 1;
         } else {
-          newtLineCursorPosition = cursorPosition + (newLine.length + 1) + (currentLine.length - cursorPositionFromLineStart);
+          const newLength = newLine.length + 1;
+          const currentEndLength = currentLine.length - cursorPositionFromLineStart;
+          newtLineCursorPosition = cursorPosition + newLength + currentEndLength;
         }
       }
     }
