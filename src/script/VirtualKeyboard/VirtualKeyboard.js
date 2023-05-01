@@ -8,6 +8,7 @@ class VirtualKeyboard {
     this.keyboard = new Keyboard(parent);
     this.cursorPosition = 0;
     this.capsLock = false;
+    this.shift = false;
 
     this.textarea.el.addEventListener('click', () => {
       this.cursorPosition = this.textarea.getCursorPosition();
@@ -59,6 +60,7 @@ class VirtualKeyboard {
             break;
           case 'ShiftLeft':
           case 'ShiftRight':
+            this.toggleShift();
             break;
           case 'ControlLeft':
           case 'ControlRight':
@@ -80,6 +82,9 @@ class VirtualKeyboard {
             break;
           default:
             this.textarea.addNewChar(currentKeyEl.innerHTML, this.cursorPosition);
+            if (this.shift) {
+              this.toggleShift();
+            }
             this.cursorPosition = this.textarea.getCursorPosition();
             break;
         }
@@ -102,6 +107,41 @@ class VirtualKeyboard {
           this.cursorPosition = this.textarea.getCursorPosition();
         }
       });
+    });
+  }
+
+  toggleShift() {
+    this.shift = !this.shift;
+
+    this.keyboard.keys.forEach((key) => {
+      const currentEl = key;
+      const keyCode = currentEl.keyEl.dataset.code;
+      let value;
+
+      if (!(keyCode in specKey) && letter[language][keyCode]) {
+        if (this.capsLock) {
+          if (this.shift) {
+            if ('keyShift' in letter[language][keyCode]) {
+              value = 'keyShift';
+            } else {
+              value = 'key';
+            }
+          } else if ('keyShift' in letter[language][keyCode]) {
+            value = 'keyShift';
+          } else {
+            value = 'keyTab';
+          }
+        } else if (this.shift) {
+          if ('keyShift' in letter[language][keyCode]) {
+            value = 'keyShift';
+          } else {
+            value = 'keyTab';
+          }
+        } else {
+          value = 'key';
+        }
+        currentEl.keyEl.innerHTML = letter[language][keyCode][value];
+      }
     });
   }
 }
