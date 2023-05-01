@@ -41,11 +41,11 @@ class VirtualKeyboard {
             this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'CapsLock':
-            this.toggleCapsLock();
+            this.toggleCapsLock(event.target);
             break;
           case 'ShiftLeft':
           case 'ShiftRight':
-            this.toggleShift();
+            this.toggleShift(event.target);
             break;
           case 'ControlLeft':
           case 'ControlRight':
@@ -100,6 +100,11 @@ class VirtualKeyboard {
 
       this.keyboard.keys.forEach((key) => {
         if (key.keyEl.dataset.code === event.code) {
+          if (event.key === 'CapsLock') {
+            if (this.capsLock) {
+              return;
+            }
+          }
           key.keyEl.classList.remove('key--active');
           this.cursorPosition = this.textarea.getCursorPosition();
         }
@@ -107,8 +112,14 @@ class VirtualKeyboard {
     });
   }
 
-  toggleShift() {
+  toggleShift(keyShift) {
     this.shift = !this.shift;
+
+    if (this.shift) {
+      keyShift.classList.add('key--active');
+    } else {
+      keyShift.classList.remove('key--active');
+    }
 
     this.keyboard.keys.forEach((key) => {
       const currentEl = key;
@@ -123,10 +134,10 @@ class VirtualKeyboard {
             } else {
               value = 'key';
             }
-          } else if ('keyShift' in letter[language][keyCode]) {
-            value = 'keyShift';
-          } else {
+          } else if ('keyTab' in letter[language][keyCode]) {
             value = 'keyTab';
+          } else {
+            value = 'key';
           }
         } else if (this.shift) {
           if ('keyShift' in letter[language][keyCode]) {
@@ -142,8 +153,15 @@ class VirtualKeyboard {
     });
   }
 
-  toggleCapsLock() {
+  toggleCapsLock(capslock) {
     this.capsLock = !this.capsLock;
+
+    if (this.capsLock) {
+      capslock.classList.add('key--active');
+    } else {
+      capslock.classList.remove('key--active');
+    }
+
     this.keyboard.keys.forEach((key) => {
       const currentEl = key;
       const keyCode = currentEl.keyEl.dataset.code;

@@ -18,6 +18,9 @@ class Key {
     });
 
     this.keyEl.addEventListener('mouseup', () => {
+      if (this.keyEl.dataset.code === 'CapsLock' || this.keyEl.dataset.code === 'ShiftLeft' || this.keyEl.dataset.code === 'ShiftRight') {
+        return;
+      }
       this.keyEl.classList.remove('key--active');
     });
   }
