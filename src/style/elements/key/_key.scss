@@ -39,6 +39,10 @@
 
   &--active,
   &:active{
-    background: #d51717;
+    background: var(--color-key);
+
+    &:hover{
+      background: var(--color-key);
+    }
   }
 }

@@ -1,5 +1,6 @@
 :root {
   --color-main: #413e3e;
+  --color-key: #ffa734;
 }
 
 *,
@@ -81,7 +82,10 @@ body {
   box-shadow: 0 2px 3px 1px #fff;
 }
 .key--active, .key:active {
-  background: #d51717;
+  background: var(--color-key);
+}
+.key--active:hover, .key:active:hover {
+  background: var(--color-key);
 }
 
 .wrap {

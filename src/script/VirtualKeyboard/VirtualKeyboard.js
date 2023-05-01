@@ -78,11 +78,13 @@ class VirtualKeyboard {
 
     document.addEventListener('keydown', (event) => {
       if (event.key === 'CapsLock') {
-        this.toggleCapsLock();
+        const key = document.querySelector('[data-code="CapsLock"]');
+        this.toggleCapsLock(key);
       }
 
       if (event.key === 'Shift') {
-        this.toggleShift();
+        const key = document.querySelector(`[data-code="${event.code}"]`);
+        this.toggleShift(key);
       }
 
       this.keyboard.keys.forEach((key) => {
@@ -95,7 +97,8 @@ class VirtualKeyboard {
 
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Shift') {
-        this.toggleShift();
+        const key = document.querySelector(`[data-code="${event.code}"]`);
+        this.toggleShift(key);
       }
 
       this.keyboard.keys.forEach((key) => {
