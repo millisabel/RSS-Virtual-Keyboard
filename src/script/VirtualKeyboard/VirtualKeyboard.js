@@ -9,6 +9,7 @@ class VirtualKeyboard {
     this.cursorPosition = 0;
     this.capsLock = false;
     this.shift = false;
+    this.language = language;
 
     this.textarea.el.addEventListener('click', () => {
       this.cursorPosition = this.textarea.getCursorPosition();
@@ -77,6 +78,8 @@ class VirtualKeyboard {
     });
 
     document.addEventListener('keydown', (event) => {
+      this.toggleLanguage(event);
+
       if (event.key === 'CapsLock') {
         const key = document.querySelector('[data-code="CapsLock"]');
         this.toggleCapsLock(key);
@@ -115,6 +118,27 @@ class VirtualKeyboard {
     });
   }
 
+  toggleLanguage(event) {
+    if (event.ctrlKey && event.altKey) {
+      if (this.language === 'ru') {
+        this.language = 'en';
+      } else {
+        this.language = 'ru';
+      }
+    }
+
+    localStorage.setItem('language', this.language);
+
+    this.keyboard.keys.forEach((key) => {
+      const currentEl = key;
+      const keyCode = currentEl.keyEl.dataset.code;
+
+      if (!(keyCode in specKey) && letter[this.language][keyCode].key) {
+        currentEl.keyEl.innerHTML = letter[this.language][keyCode].key;
+      }
+    });
+  }
+
   toggleShift(keyShift) {
     this.shift = !this.shift;
 
@@ -129,21 +153,21 @@ class VirtualKeyboard {
       const keyCode = currentEl.keyEl.dataset.code;
       let value;
 
-      if (!(keyCode in specKey) && letter[language][keyCode]) {
+      if (!(keyCode in specKey) && letter[this.language][keyCode]) {
         if (this.capsLock) {
           if (this.shift) {
-            if ('keyShift' in letter[language][keyCode]) {
+            if ('keyShift' in letter[this.language][keyCode]) {
               value = 'keyShift';
             } else {
               value = 'key';
             }
-          } else if ('keyTab' in letter[language][keyCode]) {
+          } else if ('keyTab' in letter[this.language][keyCode]) {
             value = 'keyTab';
           } else {
             value = 'key';
           }
         } else if (this.shift) {
-          if ('keyShift' in letter[language][keyCode]) {
+          if ('keyShift' in letter[this.language][keyCode]) {
             value = 'keyShift';
           } else {
             value = 'keyTab';
@@ -151,7 +175,7 @@ class VirtualKeyboard {
         } else {
           value = 'key';
         }
-        currentEl.keyEl.innerHTML = letter[language][keyCode][value];
+        currentEl.keyEl.innerHTML = letter[this.language][keyCode][value];
       }
     });
   }
@@ -176,8 +200,8 @@ class VirtualKeyboard {
         value = 'key';
       }
 
-      if (!(keyCode in specKey) && letter[language][keyCode][value]) {
-        currentEl.keyEl.innerHTML = letter[language][keyCode][value];
+      if (!(keyCode in specKey) && letter[this.language][keyCode][value]) {
+        currentEl.keyEl.innerHTML = letter[this.language][keyCode][value];
       }
     });
   }

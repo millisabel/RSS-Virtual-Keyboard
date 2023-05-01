@@ -1,4 +1,4 @@
-export const language = 'ru';
+export const language = localStorage.getItem('language') || 'ru';
 
 export const specKey = {
   Space: 'Space',
