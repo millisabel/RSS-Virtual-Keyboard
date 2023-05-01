@@ -1,0 +1,24 @@
+.keyboard{
+  --keyboard-gap: 5px;
+
+  padding: var(--keyboard-gap);
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--keyboard-gap);
+
+  background: var(--color-main);
+
+  &__row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--keyboard-gap);
+
+    width: 100%;
+  }
+}

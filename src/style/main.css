@@ -1,0 +1,105 @@
+:root {
+  --color-main: #413e3e;
+  --color-key: #ffa734;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: #ededed;
+}
+
+.textarea {
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 1vw;
+  border-radius: 5px;
+  border: none;
+  box-shadow: inset 0 0 10px grey;
+  outline: none;
+  resize: none;
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+  font-size: 2vw;
+  color: var(--color-main);
+  text-transform: uppercase;
+}
+
+.keyboard {
+  --keyboard-gap: 5px;
+  padding: var(--keyboard-gap);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--keyboard-gap);
+  background: var(--color-main);
+}
+.keyboard__row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--keyboard-gap);
+  width: 100%;
+}
+
+.key {
+  --key-size: 4vw;
+  --key-width: var(--key-size);
+  --key-height: var(--key-size);
+  width: var(--key-width);
+  min-width: var(--key-width);
+  height: var(--key-height);
+  border: none;
+  border-radius: 5px;
+  font-size: calc(var(--key-size) / 2);
+  cursor: pointer;
+  transition: background 0.5s ease, color 0.3s ease;
+}
+.key--spec {
+  font-size: calc(var(--key-size) / 4);
+  font-weight: bold;
+  background: #8c8b8b;
+}
+.key[data-code=Space], .key[data-code=ShiftLeft], .key[data-code=ShiftRight], .key[data-code=Enter], .key[data-code=CapsLock], .key[data-code=Backspace] {
+  --key-width: calc(var(--key-size) * 2);
+  flex-grow: 1;
+}
+.key:hover {
+  color: #fff;
+  background: var(--color-main);
+  box-shadow: 0 2px 3px 1px #fff;
+}
+.key--active, .key:active {
+  background: var(--color-key);
+}
+.key--active:hover, .key:active:hover {
+  background: var(--color-key);
+}
+
+.wrap {
+  width: max-content;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 10px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  box-shadow: 0 0 50px grey;
+  background: #d2d2d2;
+}
+
+/*# sourceMappingURL=main.css.map */
