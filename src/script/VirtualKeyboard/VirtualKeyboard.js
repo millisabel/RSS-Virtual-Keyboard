@@ -41,22 +41,7 @@ class VirtualKeyboard {
             this.cursorPosition = this.textarea.getCursorPosition();
             break;
           case 'CapsLock':
-            this.capsLock = !this.capsLock;
-            this.keyboard.keys.forEach((key) => {
-              const currentEl = key;
-              const keyCode = currentEl.keyEl.dataset.code;
-              let value;
-
-              if (this.capsLock) {
-                value = 'keyTab';
-              } else {
-                value = 'key';
-              }
-
-              if (!(keyCode in specKey) && letter[language][keyCode][value]) {
-                currentEl.keyEl.innerHTML = letter[language][keyCode][value];
-              }
-            });
+            this.toggleCapsLock();
             break;
           case 'ShiftLeft':
           case 'ShiftRight':
@@ -92,8 +77,16 @@ class VirtualKeyboard {
     });
 
     document.addEventListener('keydown', (event) => {
-      this.textarea.el.focus();
+      if (event.key === 'CapsLock') {
+        this.toggleCapsLock();
+      }
+
+      if (event.key === 'Shift') {
+        this.toggleShift();
+      }
+
       this.keyboard.keys.forEach((key) => {
+        this.textarea.el.focus();
         if (key.keyEl.dataset.code === event.code) {
           key.keyEl.classList.add('key--active');
         }
@@ -101,6 +94,10 @@ class VirtualKeyboard {
     });
 
     document.addEventListener('keyup', (event) => {
+      if (event.key === 'Shift') {
+        this.toggleShift();
+      }
+
       this.keyboard.keys.forEach((key) => {
         if (key.keyEl.dataset.code === event.code) {
           key.keyEl.classList.remove('key--active');
@@ -140,6 +137,25 @@ class VirtualKeyboard {
         } else {
           value = 'key';
         }
+        currentEl.keyEl.innerHTML = letter[language][keyCode][value];
+      }
+    });
+  }
+
+  toggleCapsLock() {
+    this.capsLock = !this.capsLock;
+    this.keyboard.keys.forEach((key) => {
+      const currentEl = key;
+      const keyCode = currentEl.keyEl.dataset.code;
+      let value;
+
+      if (this.capsLock) {
+        value = 'keyTab';
+      } else {
+        value = 'key';
+      }
+
+      if (!(keyCode in specKey) && letter[language][keyCode][value]) {
         currentEl.keyEl.innerHTML = letter[language][keyCode][value];
       }
     });
